@@ -1,4 +1,4 @@
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { Guardian, LocalGuardian, Student, UserName } from './student.interface';
 
 
@@ -29,12 +29,12 @@ const localGuardianSchema = new Schema<LocalGuardian>({
 const studentSchema = new Schema<Student>({
   id: stringTypeOptional,
   name: userNameSchema,
-  gender: ['male', 'female'],
+  gender: {enum:['male', 'female'],...stringTypeRequired},
   dateOfBirth: stringTypeOptional,
   email: stringTypeRequired,
   contactNumber: stringTypeRequired,
   emergencyContactNo: stringTypeRequired,
-  bloodGroup: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+  bloodGroup:{ enum:['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],...stringTypeRequired},
   presentAddress: stringTypeRequired,
   permanentAddress: stringTypeRequired,
   guardian: {
@@ -43,7 +43,7 @@ const studentSchema = new Schema<Student>({
   },
   localGuardian: localGuardianSchema,
   profileImg: stringTypeOptional,
-  isActive: ['active', 'inactive'],
+  isActive: {enum:['active', 'inactive'],...stringTypeRequired},
 });
 
 
