@@ -5,12 +5,13 @@
 
 1. Clone the repository:
     ```
-    git clone <repository-url>
+    git clone https://github.com/Muslehud77/lets-dive-into-mongoose.git
     ```
 
 2. Navigate into the project directory:
     ```
-    cd <project-name>
+    cd lets-dive-into-mongoose
+
     ```
 
 3. Install the dependencies:
