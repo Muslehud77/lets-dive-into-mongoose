@@ -1,29 +1,26 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import js from '@eslint/js';
 
 export default [
-  js.configs.recommended,
   {
-    files: ['src/**/*.ts', 'src/**/*.tsx'],
-    ignores: ['.dist/',".node_modules/"],
-    languageOptions: { globals: globals.node },
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
+    ignores: ['**/node_modules/', '.dist/'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        process: 'readonly',
+      },
+    },
 
-  {
-    
     rules: {
-      '@typescript-eslint/no-unused-vars': 'error',
-      // to enforce using type for object type definitions, can be type or interface
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-
-      'no-unused-expressions': 'warn',
-      'prefer-const': 'warn',
+      'no-unused-vars': 'error',
+      'no-unused-expressions': 'error',
+      'prefer-const': 'error',
       'no-console': 'warn',
       'no-undef': 'error',
     },
   },
+
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
 ];
