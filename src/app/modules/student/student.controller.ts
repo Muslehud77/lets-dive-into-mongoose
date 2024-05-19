@@ -18,7 +18,11 @@ const createStudent = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
 
-    res.status(200);
+    res.status(500).json({
+      success: false,
+      message: 'Could not complete the request',
+      data: err,
+    });
   }
 };
 
@@ -33,7 +37,11 @@ const getStudentByID = async (req: Request, res: Response) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(400);
+    res.status(500).json({
+      success: false,
+      message: 'Could not complete the request',
+      data: err,
+    });
   }
 };
 
@@ -47,7 +55,11 @@ const getAllStudent = async (req: Request, res: Response) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(400);
+    res.status(500).json({
+      success: false,
+      message: 'Could not complete the request',
+      data: err,
+    });
   }
 };
 
