@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import validator from 'validator';
 import {
   Guardian,
   LocalGuardian,
@@ -9,13 +10,12 @@ import {
 // Define a constant for the optional string type
 const stringTypeOptional = { type: String, trim: true };
 
-const nameValidator = (value:string) : boolean =>{
-   const toLowercase = value.toLowerCase();
-   const capitalizeString =
-     toLowercase.charAt(0).toUpperCase() + toLowercase.slice(1);
-   return value === capitalizeString;
-  
-}
+const nameValidator = (value: string): boolean => {
+  const toLowercase = value.toLowerCase();
+  const capitalizeString =
+    toLowercase.charAt(0).toUpperCase() + toLowercase.slice(1);
+  return value === capitalizeString;
+};
 
 // Define the schema for the user name
 const userNameSchema = new Schema<UserName>({
@@ -24,8 +24,8 @@ const userNameSchema = new Schema<UserName>({
     required: [true, 'First Name is required'],
     trim: true,
     validate: {
-      validator: function (value:string) {
-        const toLowercase = value.toLowerCase()
+      validator: function (value: string) {
+        const toLowercase = value.toLowerCase();
         const capitalizeString =
           toLowercase.charAt(0).toUpperCase() + toLowercase.slice(1);
         return value === capitalizeString;
@@ -38,6 +38,10 @@ const userNameSchema = new Schema<UserName>({
     type: String,
     required: [true, 'Last Name is required'],
     trim: true,
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: '{VALUE} is not valid',
+    },
   },
 });
 
@@ -47,7 +51,7 @@ const guardianSchema = new Schema<Guardian>({
     type: String,
     required: [true, 'Guardian Name is required'],
     minlength: [5, 'Need at least 5 characters'],
-    
+
     trim: true,
   },
   occupation: {
@@ -68,7 +72,7 @@ const localGuardianSchema = new Schema<LocalGuardian>({
     type: String,
     required: [true, 'Guardian Name is required'],
     minlength: [5, 'Need at least 5 characters'],
-    
+
     trim: true,
   },
   occupation: {
@@ -112,6 +116,10 @@ const studentSchema = new Schema<Student>({
     required: [true, 'Email is required'],
     unique: true,
     trim: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
+      message: '{VALUE} is not a valid email',
+    },
   },
   contactNumber: {
     type: String,
