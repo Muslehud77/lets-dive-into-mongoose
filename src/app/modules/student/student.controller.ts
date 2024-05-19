@@ -40,11 +40,11 @@ const getStudentByID = async (req: Request, res: Response) => {
 const getAllStudent = async (req: Request, res: Response) => {
   try {
     const result = await studentServices.getAllStudentsFromDB();
-     res.status(200).json({
-       success: true,
-       message: 'Query Successful',
-       data: result,
-     });
+    res.status(200).json({
+      success: true,
+      message: 'Query Successful',
+      data: result,
+    });
   } catch (err) {
     console.log(err);
     res.status(400);

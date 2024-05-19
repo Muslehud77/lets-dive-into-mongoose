@@ -1,4 +1,3 @@
-
 export type Guardian = {
   name: string;
   occupation: string;
@@ -6,14 +5,14 @@ export type Guardian = {
 };
 
 export interface LocalGuardian extends Guardian {
-    address : string
+  address: string;
 }
 
 export type UserName = {
-    firstName: string;
-    middleName?: string;
-    lastName: string;
-  };
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+};
 
 export type Student = {
   id: string;
@@ -30,7 +29,7 @@ export type Student = {
     father: Guardian;
     mother: Guardian;
   };
-  localGuardian : LocalGuardian;
-  profileImg? : string;
-  isActive : "active" | "inactive"
+  localGuardian: LocalGuardian;
+  profileImg?: string;
+  isActive: 'active' | 'inactive';
 };
