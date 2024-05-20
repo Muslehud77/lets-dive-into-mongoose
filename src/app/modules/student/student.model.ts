@@ -23,25 +23,25 @@ const userNameSchema = new Schema<UserName>({
     type: String,
     required: [true, 'First Name is required'],
     trim: true,
-    validate: {
-      validator: function (value: string) {
-        const toLowercase = value.toLowerCase();
-        const capitalizeString =
-          toLowercase.charAt(0).toUpperCase() + toLowercase.slice(1);
-        return value === capitalizeString;
-      },
-      message: '{VALUE} is not capitalized!',
-    },
+    // validate: {
+    //   validator: function (value: string) {
+    //     const toLowercase = value.toLowerCase();
+    //     const capitalizeString =
+    //       toLowercase.charAt(0).toUpperCase() + toLowercase.slice(1);
+    //     return value === capitalizeString;
+    //   },
+    //   message: '{VALUE} is not capitalized!',
+    // },
   },
   middleName: stringTypeOptional,
   lastName: {
     type: String,
     required: [true, 'Last Name is required'],
     trim: true,
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: '{VALUE} is not valid',
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: '{VALUE} is not valid',
+    // },
   },
 });
 

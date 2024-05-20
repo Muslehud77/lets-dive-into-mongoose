@@ -1,13 +1,23 @@
 import { Request, Response } from 'express';
-import { Student } from './student.interface';
+
 import { studentServices } from './student.service';
-import { JoiStudentValidationSchema } from './student.validation';
+import { JoiStudentValidationSchema } from './student.joiValidation';
+import { Student } from './student.interface';
+import zodStudentValidationSchema from './student.zodValidation';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-      
 
-    const {value:student} = await JoiStudentValidationSchema.validateAsync(req.body.student)
+
+    //* data validation using Joi
+    // const { value: student } = await JoiStudentValidationSchema.validateAsync(
+    //   req.body.student,
+    // );
+
+    //* data validation using Zod
+    const student = (await zodStudentValidationSchema.parseAsync(
+      req.body.student,
+    )) as unknown as Student;
 
     // will call service func to send this data
     const result = await studentServices.createStudentIntoDB(student);
