@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // Define the validation schema for UserName
 const userNameValidationSchema = z.object({
@@ -18,7 +18,7 @@ const userNameValidationSchema = z.object({
     .string()
     .min(5, { message: 'Last Name is required' })
     .trim()
-    .refine(value => /^[a-zA-Z]+$/.test(value), {
+    .regex(/^[a-zA-Z]+$/, {
       message: 'Last Name should only contain alphabetic characters',
     }),
 });
@@ -68,9 +68,7 @@ const zodStudentValidationSchema = z.object({
   id: z.string().min(1, { message: 'ID is required' }).trim(),
   name: userNameValidationSchema,
   gender: z.enum(['male', 'female', 'others'], {
-    errorMap: () => ({
-      message: "The gender field can only be 'male', 'female' or 'other'",
-    }),
+    message: "The gender field can only be 'male', 'female' or 'other'",
   }),
   dateOfBirth: z.string().trim().optional(),
   email: z
@@ -88,8 +86,7 @@ const zodStudentValidationSchema = z.object({
     .trim(),
   bloodGroup: z
     .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-    .optional()
-    .nullable(),
+    .optional(),
   presentAddress: z
     .string()
     .min(1, { message: 'Present Address is required' })
@@ -106,6 +103,5 @@ const zodStudentValidationSchema = z.object({
   profileImg: z.string().trim().optional(),
   isActive: z.enum(['active', 'inactive']).default('active').optional(),
 });
-
 
 export default zodStudentValidationSchema;

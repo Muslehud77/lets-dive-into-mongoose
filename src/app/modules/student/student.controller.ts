@@ -2,22 +2,20 @@ import { Request, Response } from 'express';
 
 import { studentServices } from './student.service';
 import { JoiStudentValidationSchema } from './student.joiValidation';
-import { Student } from './student.interface';
+import { TStudent } from './student.interface';
 import zodStudentValidationSchema from './student.zodValidation';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-
-
     //* data validation using Joi
     // const { value: student } = await JoiStudentValidationSchema.validateAsync(
     //   req.body.student,
     // );
 
     //* data validation using Zod
-    const student = (await zodStudentValidationSchema.parseAsync(
+    const student = await zodStudentValidationSchema.parseAsync(
       req.body.student,
-    )) as unknown as Student;
+    );
 
     // will call service func to send this data
     const result = await studentServices.createStudentIntoDB(student);
@@ -28,13 +26,13 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student is Created Successfully',
       data: result,
     });
-  } catch (err) {
+  } catch (err : any) {
     console.log(err);
 
     res.status(500).json({
       success: false,
       message: 'Could not complete the request',
-      data: err,
+      data: err.message,
     });
   }
 };
